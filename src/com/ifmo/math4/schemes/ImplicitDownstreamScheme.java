@@ -15,5 +15,4 @@ public class ImplicitDownstreamScheme extends AbstractScheme {
     protected double[] nextTimeLayerInternal() {
         return null;
     }
-
 }

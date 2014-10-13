@@ -15,5 +15,4 @@ public class ExplicitUpstreamScheme extends AbstractExplicitScheme {
     protected double calculateNodeValue(int i) {
         return 0;
     }
-
 }
