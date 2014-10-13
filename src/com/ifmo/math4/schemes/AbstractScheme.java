@@ -25,5 +25,5 @@ public abstract class AbstractScheme {
         this.rightPoint = rightPoint;
     }
 
-    public abstract double[] next();
+    public abstract double[] nextTimeLayer();
 }

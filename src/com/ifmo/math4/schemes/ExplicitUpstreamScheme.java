@@ -12,7 +12,7 @@ public class ExplicitUpstreamScheme extends AbstractScheme {
     }
 
     @Override
-    public double[] next() {
+    public double[] nextTimeLayer() {
         return null;
     }
 }
