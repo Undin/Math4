@@ -14,6 +14,9 @@ public abstract class AbstractScheme {
     protected final Function<Double, Double> leftPoint;
     protected final Function<Double, Double> rightPoint;
 
+    protected final double s;
+    protected final double r;
+
     protected double[] previousTimeLayer;
 
     public AbstractScheme(double velocity, double kappa, double dx, double dt, double[] initialValues, Function<Double, Double> leftPoint, Function<Double, Double> rightPoint) {
@@ -24,6 +27,9 @@ public abstract class AbstractScheme {
         this.previousTimeLayer = initialValues;
         this.leftPoint = leftPoint;
         this.rightPoint = rightPoint;
+
+        s = velocity * dt / dx;
+        r = kappa * dt / (dx * dx);
     }
 
     public double[] nextTimeLayer() {
