@@ -15,7 +15,7 @@ public abstract class AbstractExplicitScheme extends AbstractScheme {
     protected double[] nextTimeLayerInternal() {
         double[] nextLayer = new double[nodeNumber];
         for (int i = 0; i < nodeNumber; i++) {
-            double time = dt * i;
+            double time = dt * currentTimeLayerNumber;
             if (i == 0) {
                 nextLayer[i] = leftPoint.apply(time);
             } else if (i == nodeNumber - 1) {
