@@ -67,6 +67,52 @@
                         <Insets top="10.0"/>
                     </padding>
                 </HBox>
+                <VBox prefHeight="-1.0" prefWidth="-1.0">
+                    <children>
+                        <CheckBox fx:id="explicitUpstream" mnemonicParsing="false"
+                                  text="Explicit upstream" onAction="#explicitUpstreamChanged">
+                            <font>
+                                <Font size="14.0" fx:id="x2"/>
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="5.0" fx:id="x3"/>
+                            </VBox.margin>
+                        </CheckBox>
+                        <CheckBox fx:id="explicitDownstream" font="$x2" VBox.margin="$x3"
+                                  mnemonicParsing="false" onAction="#explicitDownstreamChanged"
+                                  text="Explicit downstream"/>
+                        <CheckBox fx:id="implicitUpstream" font="$x2" VBox.margin="$x3"
+                                  mnemonicParsing="false" onAction="#implicitUpstreamChanged"
+                                  text="Implicit upstream"/>
+                        <CheckBox fx:id="implicitDownstream" font="$x2" VBox.margin="$x3"
+                                  mnemonicParsing="false" onAction="#implicitDownstreamChanged"
+                                  text="Implicit downstream"/>
+                        <CheckBox fx:id="staggeredGrid" font="$x2" VBox.margin="$x3"
+                                  mnemonicParsing="false" onAction="#staggeredGridChanged"
+                                  text="Staggered grid"/>
+                    </children>
+                    <padding>
+                        <Insets left="80.0"/>
+                    </padding>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </VBox>
+
+                <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
+                    <children>
+                        <Button fx:id="run" text="Run" font="$x2" HBox.margin="$x4">
+                            <HBox.margin>
+                                <Insets right="10.0" fx:id="x4"/>
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="stop" text="Stop" font="$x2" HBox.margin="$x4"/>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="30.0"/>
+                    </VBox.margin>
+                </HBox>
+
             </children>
             <GridPane.margin>
                 <Insets bottom="10.0" left="700.0" top="10.0"/>
