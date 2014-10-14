@@ -51,12 +51,12 @@ public class Controller implements Initializable {
         methods = new CheckBox[]{explicitUpstream, explicitDownstream, implicitUpstream, implicitDownstream, staggeredGrid};
     }
 
-    private void addPlot(String name, double[] xAxis, double[] yAxis) {
+    private void setPlot(String name, double[] xAxis, double[] yAxis) {
         if (xAxis.length != yAxis.length) {
             throw new IllegalArgumentException("xAxis and yAxis length is different");
         }
 
-        ObservableList<XYChart.Series<Double, Double>> lineChartData = plot.getData();
+        ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();
         LineChart.Series<Double, Double> series = new LineChart.Series<Double, Double>();
         series.setName(name);
         for (int i = 0; i < xAxis.length; i++) {
@@ -65,8 +65,13 @@ public class Controller implements Initializable {
         lineChartData.add(series);
     }
 
-    private void clearPlot() {
-        plot.setData(FXCollections.<XYChart.Series<Double, Double>>observableArrayList());
+    @FXML
+    private void runClick(ActionEvent event) {
+    }
+
+    @FXML
+    private void stopClick(ActionEvent event) {
+
     }
 
     @FXML

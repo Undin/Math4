@@ -101,12 +101,12 @@
 
                 <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
                     <children>
-                        <Button fx:id="run" text="Run" font="$x2" HBox.margin="$x4">
+                        <Button fx:id="run" text="Run" font="$x2" HBox.margin="$x4" onAction="#runClick">
                             <HBox.margin>
                                 <Insets right="10.0" fx:id="x4"/>
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="stop" text="Stop" font="$x2" HBox.margin="$x4"/>
+                        <Button fx:id="stop" text="Stop" font="$x2" HBox.margin="$x4" onAction="#stopClick"/>
                     </children>
                     <VBox.margin>
                         <Insets top="30.0"/>
