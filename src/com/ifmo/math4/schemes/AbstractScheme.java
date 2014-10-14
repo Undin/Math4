@@ -19,6 +19,8 @@ public abstract class AbstractScheme {
 
     protected double[] previousTimeLayer;
 
+    protected int currentTimeLayerNumber = 0;
+
     public AbstractScheme(double velocity, double kappa, double dx, double dt, double[] initialValues, Function<Double, Double> leftPoint, Function<Double, Double> rightPoint) {
         this.velocity = velocity;
         this.kappa = kappa;
@@ -33,6 +35,7 @@ public abstract class AbstractScheme {
     }
 
     public double[] nextTimeLayer() {
+        currentTimeLayerNumber++;
         previousTimeLayer = nextTimeLayerInternal();
         return previousTimeLayer;
     }
