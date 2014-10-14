@@ -12,7 +12,9 @@ public class ExplicitUpstreamScheme extends AbstractExplicitScheme {
     }
 
     @Override
-    protected double calculateNodeValue(int i) {
-        return 0;
+    protected double calculateInnerNodeValue(int i) {
+        return (r + s)         * previousTimeLayer[i - 1] +
+               (1 - 2 * r - s) * previousTimeLayer[i]     +
+                r              * previousTimeLayer[i + 1];
     }
 }

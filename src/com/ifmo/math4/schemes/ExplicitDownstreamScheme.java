@@ -12,7 +12,7 @@ public class ExplicitDownstreamScheme extends AbstractExplicitScheme {
     }
 
     @Override
-    protected double calculateNodeValue(int i) {
+    protected double calculateInnerNodeValue(int i) {
         return 0;
     }
 }

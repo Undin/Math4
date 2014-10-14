@@ -14,11 +14,18 @@ public abstract class AbstractExplicitScheme extends AbstractScheme {
     @Override
     protected double[] nextTimeLayerInternal() {
         double[] nextLayer = new double[nodeNumber];
-        for (int i = 0; i < nodeNumber - 1; i++) {
-            nextLayer[i] = calculateNodeValue(i);
+        for (int i = 0; i < nodeNumber; i++) {
+            double time = dt * i;
+            if (i == 0) {
+                nextLayer[i] = leftPoint.apply(time);
+            } else if (i == nodeNumber - 1) {
+                nextLayer[i] = rightPoint.apply(time);
+            } else {
+                nextLayer[i] = calculateInnerNodeValue(i);
+            }
         }
         return nextLayer;
     }
 
-    protected abstract double calculateNodeValue(int i);
+    protected abstract double calculateInnerNodeValue(int i);
 }
