@@ -14,6 +14,8 @@ public abstract class AbstractScheme {
     protected final Function<Double, Double> leftPoint;
     protected final Function<Double, Double> rightPoint;
 
+    protected final int nodeNumber;
+
     protected final double s;
     protected final double r;
 
@@ -27,6 +29,7 @@ public abstract class AbstractScheme {
         this.dx = dx;
         this.dt = dt;
         this.previousTimeLayer = initialValues;
+        this.nodeNumber = initialValues.length;
         this.leftPoint = leftPoint;
         this.rightPoint = rightPoint;
 
