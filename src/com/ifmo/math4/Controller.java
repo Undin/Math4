@@ -6,8 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.TextField;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -34,10 +34,6 @@ public class Controller implements Initializable {
         }
 
         ObservableList<XYChart.Series<Double, Double>> lineChartData = plot.getData();
-        if (lineChartData == null) {
-            lineChartData = FXCollections.observableArrayList();
-        }
-
         LineChart.Series<Double, Double> series = new LineChart.Series<Double, Double>();
         series.setName(name);
         for (int i = 0; i < xAxis.length; i++) {
@@ -47,7 +43,7 @@ public class Controller implements Initializable {
     }
 
     private void clearPlot() {
-        plot.setData(null);
+        plot.setData(FXCollections.<XYChart.Series<Double, Double>>observableArrayList());
     }
 
 }
