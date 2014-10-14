@@ -1,5 +1,9 @@
 package com.ifmo.math4;
 
+import com.ifmo.math4.schemes.AbstractScheme;
+import com.ifmo.math4.schemes.ExplicitDownstreamScheme;
+import com.ifmo.math4.schemes.ExplicitUpstreamScheme;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +17,8 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Controller implements Initializable {
 
@@ -26,6 +32,8 @@ public class Controller implements Initializable {
     private TextField dtTextView;
     @FXML
     private TextField dxTextView;
+    @FXML
+    private TextField numberTextView;
 
     @FXML
     private CheckBox explicitUpstream;
@@ -45,6 +53,13 @@ public class Controller implements Initializable {
     @FXML
     private Button stop;
 
+    private double velocity;
+    private double kappa;
+    private double dx;
+    private double dt;
+    private int number;
+
+    private Timer timer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,15 +78,88 @@ public class Controller implements Initializable {
             series.getData().add(new XYChart.Data<Double, Double>(xAxis[i], yAxis[i]));
         }
         lineChartData.add(series);
+        plot.setData(lineChartData);
     }
 
     @FXML
-    private void runClick(ActionEvent event) {
+    private void runClick(ActionEvent event) throws InterruptedException {
+        int index = -1;
+        for (int i = 0; i < methods.length; i++) {
+            if (methods[i].isSelected()) {
+                index = i;
+                break;
+            }
+        }
+
+        initParams();
+        double[] f = new double[number];
+        double[] x = new double[number];
+        for (int i = 0; i < number; i++) {
+            x[i] = dx * i;
+            if (i < number / 5) {
+                f[i] = 1;
+            }
+        }
+
+        AbstractScheme scheme = null;
+        switch (index) {
+            case 0:
+                scheme = new ExplicitUpstreamScheme(velocity, kappa, dx, dt, f, a -> 1., b -> 0.);
+                break;
+            case 1:
+                scheme = new ExplicitDownstreamScheme(velocity, kappa, dx, dt, f, a -> 1., b -> 0.);
+                break;
+            case 2:
+//                scheme = new ImplicitUpstreamScheme();
+//                break;
+            case 3:
+//                scheme = new ImplicitDownstreamScheme();
+//                break;
+            case 4:
+//                scheme = new StaggeredGridScheme();
+//                break;
+            default:
+                return;
+        }
+
+        setPlot("asd", x, f);
+        timer = new Timer();
+        timer.schedule(new Drawer(scheme, x, "asd"), 300, 300);
+    }
+
+    private class Drawer extends TimerTask {
+        private AbstractScheme scheme;
+        private double[] x;
+        private String name;
+
+        public Drawer(AbstractScheme scheme, double[] x, String name) {
+            this.scheme = scheme;
+            this.x = x;
+            this.name = name;
+        }
+
+        @Override
+        public void run() {
+            Platform.runLater(() -> setPlot(name, x, scheme.nextTimeLayer()));
+        }
+    }
+
+    private void initParams() {
+        try {
+            velocity = Double.parseDouble(velocityTextView.getText());
+            kappa = Double.parseDouble(kappaTextView.getText());
+            dx = Double.parseDouble(dxTextView.getText());
+            dt = Double.parseDouble(dtTextView.getText());
+            number = Integer.parseInt(numberTextView.getText());
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
     }
 
     @FXML
     private void stopClick(ActionEvent event) {
-
+        timer.cancel();
+        System.out.println("STOP");
     }
 
     @FXML

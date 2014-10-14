@@ -36,13 +36,13 @@
                                 <Insets bottom="2.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField id="valocityTextView" fx:id="velocityTextView" prefWidth="50.0"/>
+                        <TextField id="valocityTextView" fx:id="velocityTextView" prefWidth="50.0" text="1"/>
                         <Label font="$x1" text="æ = ">
                             <HBox.margin>
                                 <Insets bottom="2.0" left="20.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField id="valocityTextView" fx:id="kappaTextView" prefWidth="50.0"/>
+                        <TextField id="valocityTextView" fx:id="kappaTextView" prefWidth="50.0" text="1"/>
                     </children>
                     <padding>
                         <Insets top="10.0"/>
@@ -55,13 +55,26 @@
                                 <Insets bottom="2.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField id="valocityTextView" fx:id="dtTextView" prefWidth="50.0"/>
+                        <TextField id="valocityTextView" fx:id="dtTextView" prefWidth="50.0" text="0.001"/>
                         <Label font="$x1" text="dx = ">
                             <HBox.margin>
                                 <Insets bottom="2.0" left="20.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField id="valocityTextView" fx:id="dxTextView" prefWidth="50.0"/>
+                        <TextField id="valocityTextView" fx:id="dxTextView" prefWidth="50.0" text="0.1"/>
+                    </children>
+                    <padding>
+                        <Insets top="10.0"/>
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
+                    <children>
+                        <Label font="$x1" text="N = ">
+                            <HBox.margin>
+                                <Insets bottom="2.0"/>
+                            </HBox.margin>
+                        </Label>
+                        <TextField id="numberTextView" fx:id="numberTextView" prefWidth="50.0" text="100"/>
                     </children>
                     <padding>
                         <Insets top="10.0"/>
