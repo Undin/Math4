@@ -13,6 +13,8 @@ public class ExplicitDownstreamScheme extends AbstractExplicitScheme {
 
     @Override
     protected double calculateInnerNodeValue(int i) {
-        return 0;
+        return   r              * previousTimeLayer[i - 1] +
+                (1 - 2 * r + s) * previousTimeLayer[i]     +
+                (r - s)         * previousTimeLayer[i + 1];
     }
 }
