@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane alignment="CENTER" hgap="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0"
+          prefHeight="600.0" prefWidth="1000.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1"
+          xmlns="http://javafx.com/javafx/2.2" fx:controller="com.ifmo.math4.Controller">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="0"
+              GridPane.rowIndex="0">
+            <children>
+                <Label alignment="CENTER" prefWidth="300.0" text="Partial differential equation">
+                    <font>
+                        <Font name="System Bold" size="20.0"/>
+                    </font>
+                </Label>
+                <ImageView fx:id="pde_image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../PDE.png"/>
+                    </image>
+                </ImageView>
+                <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
+                    <children>
+                        <Label text="u = ">
+                            <font>
+                                <Font size="16.0" fx:id="x1"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="2.0"/>
+                            </HBox.margin>
+                        </Label>
+                        <TextField id="valocityTextView" fx:id="velocityTextView" prefWidth="50.0"/>
+                        <Label font="$x1" text="æ = ">
+                            <HBox.margin>
+                                <Insets bottom="2.0" left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                        <TextField id="valocityTextView" fx:id="kappaTextView" prefWidth="50.0"/>
+                    </children>
+                    <padding>
+                        <Insets top="10.0"/>
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
+                    <children>
+                        <Label font="$x1" text="dt = ">
+                            <HBox.margin>
+                                <Insets bottom="2.0"/>
+                            </HBox.margin>
+                        </Label>
+                        <TextField id="valocityTextView" fx:id="dtTextView" prefWidth="50.0"/>
+                        <Label font="$x1" text="dx = ">
+                            <HBox.margin>
+                                <Insets bottom="2.0" left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                        <TextField id="valocityTextView" fx:id="dxTextView" prefWidth="50.0"/>
+                    </children>
+                    <padding>
+                        <Insets top="10.0"/>
+                    </padding>
+                </HBox>
+            </children>
+            <GridPane.margin>
+                <Insets bottom="10.0" left="700.0" top="10.0"/>
+            </GridPane.margin>
+        </VBox>
+
+        <LineChart fx:id="plot">
+            <xAxis>
+                <NumberAxis label="x" lowerBound="0" upperBound="3" tickUnit="1"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="T" lowerBound="0" upperBound="3" tickUnit="1"/>
+            </yAxis>
+            <GridPane.margin>
+                <Insets right="300.0"/>
+            </GridPane.margin>
+        </LineChart>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+    </columnConstraints>
+    <padding>
+        <Insets/>
+    </padding>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+</GridPane>
