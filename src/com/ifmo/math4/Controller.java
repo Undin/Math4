@@ -1,8 +1,6 @@
 package com.ifmo.math4;
 
-import com.ifmo.math4.schemes.AbstractScheme;
-import com.ifmo.math4.schemes.ExplicitDownstreamScheme;
-import com.ifmo.math4.schemes.ExplicitUpstreamScheme;
+import com.ifmo.math4.schemes.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,8 +23,6 @@ import java.util.function.Function;
 
 public class Controller implements Initializable {
 
-    private static final long DELAY = 300;
-
     private Random random = new Random();
 
     @FXML
@@ -41,6 +37,8 @@ public class Controller implements Initializable {
     private TextField dxTextView;
     @FXML
     private TextField numberTextView;
+    @FXML
+    private TextField updateTextView;
 
     @FXML
     private CheckBox explicitUpstream;
@@ -52,6 +50,8 @@ public class Controller implements Initializable {
     private CheckBox implicitDownstream;
     @FXML
     private CheckBox staggeredGrid;
+    @FXML
+    private CheckBox showPoints;
 
     private CheckBox[] methods;
 
@@ -75,7 +75,7 @@ public class Controller implements Initializable {
     private double dt;
     private int number;
 
-    private Timer timer = new Timer();
+    private Timer timer;
     private AbstractScheme scheme;
     private double[] x;
 
@@ -123,14 +123,14 @@ public class Controller implements Initializable {
                 scheme = new ExplicitDownstreamScheme(velocity, kappa, dx, dt, f, getBoundFunction(leftFunctions), getBoundFunction(rightFunctions));
                 break;
             case 2:
-//                scheme = new ImplicitUpstreamScheme();
-//                break;
+                scheme = new ImplicitUpstreamScheme(velocity, kappa, dx, dt, f, getBoundFunction(leftFunctions), getBoundFunction(rightFunctions));
+                break;
             case 3:
-//                scheme = new ImplicitDownstreamScheme();
-//                break;
+                scheme = new ImplicitDownstreamScheme(velocity, kappa, dx, dt, f, getBoundFunction(leftFunctions), getBoundFunction(rightFunctions));
+                break;
             case 4:
-//                scheme = new StaggeredGridScheme();
-//                break;
+                scheme = new StaggeredGridScheme(velocity, kappa, dx, dt, f, getBoundFunction(leftFunctions), getBoundFunction(rightFunctions));
+                break;
             default:
                 return;
         }
@@ -204,14 +204,18 @@ public class Controller implements Initializable {
 
     @FXML
     private void pauseClick(ActionEvent event) {
-        timer.cancel();
+        if (timer == null) {
+            timer = new Timer();
+        } else {
+            timer.cancel();
+        }
     }
 
     @FXML
     private void resumeClick(ActionEvent event) {
         timer = new Timer();
         if (scheme != null) {
-            timer.schedule(new Drawer(scheme, x), 0, DELAY);
+            timer.schedule(new Drawer(scheme, x), 0, Long.parseLong(updateTextView.getText()));
         }
     }
 
@@ -238,6 +242,11 @@ public class Controller implements Initializable {
     @FXML
     private void staggeredGridChanged(ActionEvent event) {
         changeCheckBoxesState(staggeredGrid);
+    }
+
+    @FXML
+    private void showPointsChanged(ActionEvent event) {
+        plot.setCreateSymbols(showPoints.isSelected());
     }
 
     private void changeCheckBoxesState(CheckBox checkBox) {
