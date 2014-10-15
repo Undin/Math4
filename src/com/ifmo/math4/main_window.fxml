@@ -31,6 +31,23 @@
                 </ImageView>
                 <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
                     <children>
+                        <Label fx:id="sLabel" text="s = ">
+                            <font>
+                                <Font size="16.0" fx:id="x1"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="2.0"/>
+                            </HBox.margin>
+                        </Label>
+                        <Label fx:id="rLabel" font="$x1" text="r = ">
+                            <HBox.margin>
+                                <Insets bottom="2.0" left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
+                    <children>
                         <Label text="u = ">
                             <font>
                                 <Font size="16.0" fx:id="x1"/>

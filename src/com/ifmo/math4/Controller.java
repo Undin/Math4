@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.Random;
@@ -39,6 +36,11 @@ public class Controller implements Initializable {
     private TextField numberTextView;
     @FXML
     private TextField updateTextView;
+
+    @FXML
+    private Label sLabel;
+    @FXML
+    private Label rLabel;
 
     @FXML
     private CheckBox explicitUpstream;
@@ -85,6 +87,13 @@ public class Controller implements Initializable {
         plot.setCreateSymbols(false);
         plot.setLegendVisible(false);
         plot.getStyleClass().add("thick-chart");
+
+        initParams();
+
+        velocityTextView.textProperty().addListener((observable, oldValue, newValue) -> initParams());
+        kappaTextView.textProperty().addListener((observable, oldValue, newValue) -> initParams());
+        dxTextView.textProperty().addListener((observable, oldValue, newValue) -> initParams());
+        dtTextView.textProperty().addListener((observable, oldValue, newValue) -> initParams());
     }
 
     private void setPlot(double[] xAxis, double[] yAxis) {
@@ -112,7 +121,6 @@ public class Controller implements Initializable {
             }
         }
 
-        initParams();
         double[] f = initValues();
 
         switch (index) {
@@ -161,6 +169,8 @@ public class Controller implements Initializable {
             dx = Double.parseDouble(dxTextView.getText());
             dt = Double.parseDouble(dtTextView.getText());
             number = Integer.parseInt(numberTextView.getText());
+            sLabel.setText(String.format("s = %.4f", velocity * dt / dx));
+            rLabel.setText(String.format("r = %.4f", kappa * dt / (dx * dx)));
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
         }
