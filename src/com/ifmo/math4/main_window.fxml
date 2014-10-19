@@ -145,32 +145,6 @@
                 </ChoiceBox>
                 <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
                     <children>
-                        <ChoiceBox fx:id="leftFunctions" cache="true" cacheHint="DEFAULT" value="0">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="0"/>
-                                    <String fx:value="1"/>
-                                </FXCollections>
-                            </items>
-                            <HBox.margin>
-                                <Insets right="20.0"/>
-                            </HBox.margin>
-                        </ChoiceBox>
-                        <ChoiceBox fx:id="rightFunctions" cache="true" cacheHint="DEFAULT" value="0">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="0"/>
-                                    <String fx:value="1"/>
-                                </FXCollections>
-                            </items>
-                        </ChoiceBox>
-                    </children>
-                    <VBox.margin>
-                        <Insets top="20.0"/>
-                    </VBox.margin>
-                </HBox>
-                <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
-                    <children>
                         <Button fx:id="start" text="Start" font="$x2" HBox.margin="$x4" onAction="#startClick">
                             <HBox.margin>
                                 <Insets right="10.0" fx:id="x4"/>

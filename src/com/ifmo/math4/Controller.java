@@ -59,10 +59,6 @@ public class Controller implements Initializable {
 
     @FXML
     private ChoiceBox<String> initFunctions;
-    @FXML
-    private ChoiceBox<String> leftFunctions;
-    @FXML
-    private ChoiceBox<String> rightFunctions;
 
     @FXML
     private Button start;
@@ -94,6 +90,7 @@ public class Controller implements Initializable {
         kappaTextView.textProperty().addListener((observable, oldValue, newValue) -> initParams());
         dxTextView.textProperty().addListener((observable, oldValue, newValue) -> initParams());
         dtTextView.textProperty().addListener((observable, oldValue, newValue) -> initParams());
+        numberTextView.textProperty().addListener((observable, oldValue, newValue) -> initParams());
     }
 
     private void setPlot(double[] xAxis, double[] yAxis) {
@@ -125,19 +122,19 @@ public class Controller implements Initializable {
 
         switch (index) {
             case 0:
-                scheme = new ExplicitUpstreamScheme(velocity, kappa, dx, dt, f, getBoundFunction(leftFunctions), getBoundFunction(rightFunctions));
+                scheme = new ExplicitUpstreamScheme(velocity, kappa, dx, dt, f);
                 break;
             case 1:
-                scheme = new ExplicitDownstreamScheme(velocity, kappa, dx, dt, f, getBoundFunction(leftFunctions), getBoundFunction(rightFunctions));
+                scheme = new ExplicitDownstreamScheme(velocity, kappa, dx, dt, f);
                 break;
             case 2:
-                scheme = new ImplicitUpstreamScheme(velocity, kappa, dx, dt, f, getBoundFunction(leftFunctions), getBoundFunction(rightFunctions));
+                scheme = new ImplicitUpstreamScheme(velocity, kappa, dx, dt, f);
                 break;
             case 3:
-                scheme = new ImplicitDownstreamScheme(velocity, kappa, dx, dt, f, getBoundFunction(leftFunctions), getBoundFunction(rightFunctions));
+                scheme = new ImplicitDownstreamScheme(velocity, kappa, dx, dt, f);
                 break;
             case 4:
-                scheme = new StaggeredGridScheme(velocity, kappa, dx, dt, f, getBoundFunction(leftFunctions), getBoundFunction(rightFunctions));
+                scheme = new StaggeredGridScheme(velocity, kappa, dx, dt, f);
                 break;
             default:
                 return;
@@ -199,17 +196,6 @@ public class Controller implements Initializable {
             f[i] = function.apply(i);
         }
         return f;
-    }
-
-    private Function<Double, Double> getBoundFunction(ChoiceBox<String> choiceBox) {
-        switch (choiceBox.getValue()) {
-            case "0":
-                return x -> 0.;
-            case "1":
-                return x -> 1.;
-            default:
-                return null;
-        }
     }
 
     @FXML
