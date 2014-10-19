@@ -85,6 +85,7 @@ public class Controller implements Initializable {
         plot.getStyleClass().add("thick-chart");
 
         initParams();
+        resume.setDisable(true);
 
         velocityTextView.textProperty().addListener((observable, oldValue, newValue) -> initParams());
         kappaTextView.textProperty().addListener((observable, oldValue, newValue) -> initParams());
@@ -110,6 +111,7 @@ public class Controller implements Initializable {
     @FXML
     private void startClick(ActionEvent event) throws InterruptedException {
         pauseClick(event);
+        resume.setDisable(true);
         int index = -1;
         for (int i = 0; i < methods.length; i++) {
             if (methods[i].isSelected()) {
@@ -200,11 +202,14 @@ public class Controller implements Initializable {
 
     @FXML
     private void pauseClick(ActionEvent event) {
-        if (timer == null) {
-            timer = new Timer();
-        } else {
+        if (timer != null) {
             timer.cancel();
+            resume.setDisable(false);
         }
+    }
+
+    public void stopTimer() {
+        timer.cancel();
     }
 
     @FXML
@@ -213,6 +218,7 @@ public class Controller implements Initializable {
         if (scheme != null) {
             timer.schedule(new Drawer(scheme, x), 0, Long.parseLong(updateTextView.getText()));
         }
+        resume.setDisable(true);
     }
 
     @FXML

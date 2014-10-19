@@ -14,7 +14,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("main_window.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main_window.fxml"));
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         ImageView pdeImage = (ImageView) scene.lookup("#pde_image");
         Image image = new Image(new File("PDE.png").toURI().toString());
@@ -23,6 +24,7 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.setTitle("PDE");
         stage.show();
+        stage.setOnCloseRequest(event -> ((Controller) loader.getController()).stopTimer());
     }
 
 
