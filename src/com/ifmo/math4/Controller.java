@@ -209,7 +209,9 @@ public class Controller implements Initializable {
     }
 
     public void stopTimer() {
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 
     @FXML
