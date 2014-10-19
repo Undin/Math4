@@ -122,28 +122,32 @@ public class Controller implements Initializable {
 
         double[] f = initValues();
 
-        switch (index) {
-            case 0:
-                scheme = new ExplicitUpstreamScheme(velocity, kappa, dx, dt, f);
-                break;
-            case 1:
-                scheme = new ExplicitDownstreamScheme(velocity, kappa, dx, dt, f);
-                break;
-            case 2:
-                scheme = new ImplicitUpstreamScheme(velocity, kappa, dx, dt, f);
-                break;
-            case 3:
-                scheme = new ImplicitDownstreamScheme(velocity, kappa, dx, dt, f);
-                break;
-            case 4:
-                scheme = new StaggeredGridScheme(velocity, kappa, dx, dt, f);
-                break;
-            default:
-                return;
+        scheme = getScheme(index, f);
+        if (scheme == null) {
+            return;
         }
 
         setPlot(x, f);
         resumeClick(event);
+    }
+
+    private AbstractScheme getScheme(int i, double[] initValues) {
+        switch (i) {
+            case 0:
+                return new ExplicitUpstreamScheme(velocity, kappa, dx, dt, initValues);
+            case 1:
+                return new ExplicitDownstreamScheme(velocity, kappa, dx, dt, initValues);
+            case 2:
+                return new ImplicitUpstreamScheme(velocity, kappa, dx, dt, initValues);
+            case 3:
+                return new ImplicitDownstreamScheme(velocity, kappa, dx, dt, initValues);
+            case 4:
+                AbstractScheme startingScheme = getScheme(0, initValues); // this index should be specified by user
+                double[] secondLayer = startingScheme.nextTimeLayer();
+                return new StaggeredGridScheme(velocity, kappa, dx, dt, initValues, secondLayer);
+            default:
+                return null;
+        }
     }
 
     private class Drawer extends TimerTask {
