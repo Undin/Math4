@@ -1,14 +1,12 @@
 package com.ifmo.math4.schemes;
 
-import java.util.function.Function;
-
 /**
  * Created by Whiplash on 15.10.2014.
  */
 public abstract class AbstractImplicitScheme extends AbstractScheme {
 
-    public AbstractImplicitScheme(double velocity, double kappa, double dx, double dt, double[] initialValues, Function<Double, Double> leftPoint, Function<Double, Double> rightPoint) {
-        super(velocity, kappa, dx, dt, initialValues, leftPoint, rightPoint);
+    public AbstractImplicitScheme(double velocity, double kappa, double dx, double dt, double[] initialValues) {
+        super(velocity, kappa, dx, dt, initialValues);
     }
 
     @Override
