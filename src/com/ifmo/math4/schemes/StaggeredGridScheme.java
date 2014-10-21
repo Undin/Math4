@@ -26,9 +26,10 @@ public class StaggeredGridScheme extends AbstractScheme {
                     (beforePrevTimeLayer[i]
                     - s * (previousTimeLayer[i + 1] - previousTimeLayer[i - 1])
                     + 2 * r * (previousTimeLayer[i + 1] + previousTimeLayer[i - 1] -  beforePrevTimeLayer[i])) /
-                            (1 + r);
+                            (1 + 2 * r);
         }
         beforePrevTimeLayer = previousTimeLayer;
-        return previousTimeLayer = nextLayer;
+        previousTimeLayer = nextLayer;
+        return nextLayer;
     }
 }
