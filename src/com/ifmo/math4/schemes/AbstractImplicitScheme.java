@@ -12,7 +12,7 @@ public abstract class AbstractImplicitScheme extends AbstractScheme {
     @Override
     protected double[] nextTimeLayerInternal() {
         double[][] coefficients = getSystemOfCoefficients();
-        if (coefficients != null && coefficients.length == nodeNumber && coefficients[0].length == 4) {
+        if (coefficients == null || coefficients.length != nodeNumber || coefficients[0].length != 4) {
             throw new IllegalStateException("getSystemOfCoefficients return incorrect array");
         }
 
