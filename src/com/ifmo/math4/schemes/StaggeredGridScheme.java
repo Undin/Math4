@@ -23,11 +23,12 @@ public class StaggeredGridScheme extends AbstractScheme {
         nextLayer[nodeNumber - 1] = rightPoint;
         for (int i = 1; i < nodeNumber - 1; i++) {
             nextLayer[i] =
-                    beforePrevTimeLayer[i]
+                    (beforePrevTimeLayer[i]
                     - s * (previousTimeLayer[i + 1] - previousTimeLayer[i - 1])
-                    + 2 * r * (previousTimeLayer[i + 1] + previousTimeLayer[i - 1] - 2 * previousTimeLayer[i]);
+                    + 2 * r * (previousTimeLayer[i + 1] + previousTimeLayer[i - 1] -  beforePrevTimeLayer[i])) /
+                            (1 + r);
         }
         beforePrevTimeLayer = previousTimeLayer;
-        return nextLayer;
+        return previousTimeLayer = nextLayer;
     }
 }
