@@ -10,13 +10,17 @@ public class ImplicitUpstreamScheme extends AbstractImplicitScheme {
     }
 
     @Override
-    protected double[] nextTimeLayerInternal() {
-        return null;
-    }
-
-    @Override
     protected double[][] getSystemOfCoefficients() {
-        return new double[0][];
+        double[][] result = new double[nodeNumber][4];
+        for (int i = 0; i < nodeNumber; i++) {
+            result[i][0] = -r;
+            result[i][1] = 1 - s + 2 * r;
+            result[i][2] = s - r;
+            result[i][3] = previousTimeLayer[i];
+        }
+        result[0][3] += r * leftPoint;
+        result[nodeNumber - 1][3] -= (s - r) * rightPoint;
+        return result;
     }
 
 }
