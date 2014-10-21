@@ -36,6 +36,16 @@ public abstract class AbstractImplicitScheme extends AbstractScheme {
         return x;
     }
 
+    /**
+     * This method should return a system of coefficients in the following format:
+     * double[nodeNumber][4]
+     * We need only 4 coefficients on every row because the system is 3-diagonal
+     * First 3 values of result[i] should contain (i - 1), i and (i + 1) coefficients of the row
+     * and the 4th - a constant member.
+     * result[0][0] and result[nodeNumber - 1][2] are considered absent and ignored.
+     *
+     * @return array of coefficients for a system of equations needed to calculate the next step of the algorithm.
+     */
     protected abstract double[][] getSystemOfCoefficients();
     
 }
