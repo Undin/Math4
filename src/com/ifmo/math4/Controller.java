@@ -173,8 +173,8 @@ public class Controller implements Initializable {
             double[] f = scheme.nextTimeLayer();
             for (double value : f) {
                 if (value >= 10e10 || Double.isNaN(value) || Double.isInfinite(value)) {
-                    pauseClick(null);
                     Platform.runLater(() -> {
+                        pauseClick(null);
                         Stage stage = new Stage();
                         stage.initModality(Modality.WINDOW_MODAL);
                         Text message = new Text("Too large values for display on graph");
