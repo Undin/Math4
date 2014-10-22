@@ -7,9 +7,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBoxBuilder;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.util.Random;
@@ -161,7 +170,36 @@ public class Controller implements Initializable {
 
         @Override
         public void run() {
-            Platform.runLater(() -> setPlot(x, scheme.nextTimeLayer()));
+            double[] f = scheme.nextTimeLayer();
+            for (double value : f) {
+                if (value >= 10e10 || Double.isNaN(value) || Double.isInfinite(value)) {
+                    pauseClick(null);
+                    Platform.runLater(() -> {
+                        Stage stage = new Stage();
+                        stage.initModality(Modality.WINDOW_MODAL);
+                        Text message = new Text("Too large values for display on graph");
+                        message.setFont(new Font(20));
+                        Scene scene = new Scene(VBoxBuilder.create().
+                                children(message).
+                                alignment(Pos.CENTER).padding(new Insets(5)).build());
+                        stage.setScene(scene);
+                        stage.setResizable(false);
+                        stage.setOpacity(.8);
+                        stage.initStyle(StageStyle.UNDECORATED);
+                        stage.show();
+                        Timer closeTimer = new Timer();
+                        closeTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                Platform.runLater(stage::close);
+                                closeTimer.cancel();
+                            }
+                        }, 2000);
+                    });
+                    return;
+                }
+            }
+            Platform.runLater(() -> setPlot(x, f));
         }
     }
 
