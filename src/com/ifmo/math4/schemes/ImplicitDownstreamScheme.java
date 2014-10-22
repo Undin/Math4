@@ -13,13 +13,13 @@ public class ImplicitDownstreamScheme extends AbstractImplicitScheme {
     protected double[][] getSystemOfCoefficients() {
         double[][] result = new double[nodeNumber][4];
         for (int i = 0; i < nodeNumber; i++) {
-            result[i][0] = -s - r;
-            result[i][1] = 1 + s + 2 * r;
-            result[i][2] = -r;
+            result[i][0] = -r;
+            result[i][1] = 1 - s + 2 * r;
+            result[i][2] = s - r;
             result[i][3] = previousTimeLayer[i];
         }
-        result[0][3] += (s + r) * leftPoint;
-        result[nodeNumber - 1][3] += r * rightPoint;
+        result[0][3] += r * leftPoint;
+        result[nodeNumber - 1][3] -= (s - r) * rightPoint;
         return result;
     }
 
