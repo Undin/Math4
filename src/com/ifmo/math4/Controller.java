@@ -151,7 +151,7 @@ public class Controller implements Initializable {
             case 3:
                 return new ImplicitDownstreamScheme(velocity, kappa, dx, dt, initValues);
             case 4:
-                AbstractScheme startingScheme = getScheme(0, initValues); // this index should be specified by user
+                AbstractScheme startingScheme = getScheme(2, initValues); // this index should be specified by user
                 double[] secondLayer = startingScheme.nextTimeLayer();
                 return new StaggeredGridScheme(velocity, kappa, dx, dt, initValues, secondLayer);
             default:
